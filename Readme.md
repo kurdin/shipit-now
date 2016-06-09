@@ -6,7 +6,7 @@ Minimalistic SSH deployment.
 
 ## Installation
 
-    $ pathtoshipit=/usr/local/bin/shipit; curl -o $pathtoshipit https://raw.githubusercontent.com/kurdin/shipit/tree/master/bin/shipit; chmod +x $pathtoshipit; unset pathtoshipit
+    $ pathtoshipit=/usr/local/bin/shipit; curl -o $pathtoshipit https://raw.githubusercontent.com/kurdin/shipit/master/bin/shipit; chmod +x $pathtoshipit; unset pathtoshipit
 
 You can use this command to update shipit too.
 
