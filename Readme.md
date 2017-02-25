@@ -1,3 +1,5 @@
+forked from https://github.com/sapegin/shipit
+
 # shipit :shipit:
 
 Minimalistic SSH deployment.
