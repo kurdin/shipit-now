@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Minimalistic SSH deployment",
   "main": "bin/shipit",
+  "bin": {
+    "shipit": "bin/shipit"
+  },
   "directories": {
     "test": "test"
   },

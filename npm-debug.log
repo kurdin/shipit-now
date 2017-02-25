@@ -1,111 +1,32 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/usr/local/bin/iojs', '/usr/local/bin/npm', 'publish', '.' ]
+1 verbose cli [ '/usr/local/bin/iojs',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'version',
+1 verbose cli   '1.0.1' ]
 2 info using npm@4.1.2
 3 info using node@v6.9.4
-4 verbose publish [ '.' ]
-5 silly cache add args [ '.', null ]
-6 verbose cache add spec .
-7 silly cache add parsed spec Result {
-7 silly cache add   raw: '.',
-7 silly cache add   scope: null,
-7 silly cache add   escapedName: null,
-7 silly cache add   name: null,
-7 silly cache add   rawSpec: '.',
-7 silly cache add   spec: '/Users/kurdin/projects/shipit',
-7 silly cache add   type: 'directory' }
-8 verbose addLocalDirectory /Users/kurdin/.npm/shipit-ssh/1.0.0/package.tgz not in flight; packing
-9 verbose correctMkdir /Users/kurdin/.npm correctMkdir not in flight; initializing
-10 info lifecycle shipit-ssh@1.0.0~prepublish: shipit-ssh@1.0.0
-11 silly lifecycle shipit-ssh@1.0.0~prepublish: no script for prepublish, continuing
-12 info lifecycle shipit-ssh@1.0.0~prepare: shipit-ssh@1.0.0
-13 silly lifecycle shipit-ssh@1.0.0~prepare: no script for prepare, continuing
-14 verbose tar pack [ '/Users/kurdin/.npm/shipit-ssh/1.0.0/package.tgz',
-14 verbose tar pack   '/Users/kurdin/projects/shipit' ]
-15 verbose tarball /Users/kurdin/.npm/shipit-ssh/1.0.0/package.tgz
-16 verbose folder /Users/kurdin/projects/shipit
-17 verbose addLocalTarball adding from inside cache /Users/kurdin/.npm/shipit-ssh/1.0.0/package.tgz
-18 verbose correctMkdir /Users/kurdin/.npm correctMkdir not in flight; initializing
-19 silly cache afterAdd shipit-ssh@1.0.0
-20 verbose afterAdd /Users/kurdin/.npm/shipit-ssh/1.0.0/package/package.json not in flight; writing
-21 verbose correctMkdir /Users/kurdin/.npm correctMkdir not in flight; initializing
-22 verbose afterAdd /Users/kurdin/.npm/shipit-ssh/1.0.0/package/package.json written
-23 silly publish { name: 'shipit-ssh',
-23 silly publish   version: '1.0.0',
-23 silly publish   description: 'Minimalistic SSH deployment',
-23 silly publish   main: 'bin/shipit',
-23 silly publish   directories: { test: 'test' },
-23 silly publish   scripts: { test: 'echo "Error: no test specified" && exit 1' },
-23 silly publish   repository:
-23 silly publish    { type: 'git',
-23 silly publish      url: 'git+https://github.com/kurdin/shipit-ssh.git' },
-23 silly publish   author: { name: 'Sergey Kurdin' },
-23 silly publish   license: 'ISC',
-23 silly publish   bugs: { url: 'https://github.com/kurdin/shipit-ssh/issues' },
-23 silly publish   homepage: 'https://github.com/kurdin/shipit-ssh#readme',
-23 silly publish   readme: 'forked from https://github.com/sapegin/shipit\n\n# shipit :shipit:\n\nMinimalistic SSH deployment.\n\n![shipit](http://blog.sapegin.me/images/mac__shipit.png)\n\n## Installation\n\n    $ pathtoshipit=/usr/local/bin/shipit; curl -o $pathtoshipit https://raw.githubusercontent.com/kurdin/shipit/master/bin/shipit; chmod +x $pathtoshipit; unset pathtoshipit\n\nYou can use this command to update shipit too.\n\n*Use `sudo` or replace `/usr/local/bin/shipit` to path somewhere inside your home directory.*\n\n## Usage\n\n    shipit [command|option]\n\n### Options\n\n| Option          | Description |\n| --------------- | --- |\n| -V, --version   | Print program version |\n| -h, --help      | Print help (this screen) |\n\n### Commands\n\n| Command         | Description |\n| --------------- | --- |\n| `<target>`      | Executes `target` target on remote host (run `shipit` to execute \'deploy\' target) |\n| list            | Print list of available targets |\n| console         | Open an SSH session on remote host |\n| exec `<cmd>`    | Execute `cmd` on remote host |\n| copy `<file>`   | Copies `files` to remote host |\n\n### Command aliases\n\n| Command         | Aliases |\n| --------------- | --- |\n| list            | ls |\n| console         | shell, ssh |\n| exec            | run |\n| copy            | cp |\n\n### Examples\n\n    $ shipit\n\nWill execute `deploy` target.\n\n    $ shipit status\n\nWill execute `status` target.\n\n    $ shipit list\n\nWill show a list of available targets.\n\n    $ shipit exec uptime\n\nWill execute `uptime` command on remote host.\n\n\n## Configuration\n\nYou need to create `.shipit` file in your project’s directory.\n\nHere is a typical config:\n\n    host=\'myhost\'\n    path=\'sites/example.com\'\n\n    [deploy:local]\n    git push origin master\n\n    [deploy]\n    git checkout master\n    git pull\n    npm install\n    grunt build\n\n    [status]\n    uptime\n\nThe only required things is `host` and `path` parameters and `[deploy]` or `[deploy:local]`  target.\n\nFor non-standard port number, and to specify which SSH key to use, edit your SSH config at `~/.ssh/config`:\n\n```\nhost example.com\nIdentityFile ~/.ssh/keyfile\nport 10022\nuser usernamehere\n```\n\n### Parameters\n\n### host\n\nIt’s the same host you use in `ssh` command. It could be string of format `<username>@<ip>:<port>` or just a name of `~/.ssh/config` record.\n\n### path\n\nProject path on remote host. shipit will `cd` to this directory before executing any command.\n\n### Targets\n\nTarget is just a bunch of shell command that will be executed on remote host via SSH. You can define as many targets as you want.\n\nNote that you can’t use blank lines inside targets but you can use comments (#) and other things—it’s just a shell script.\n\n### Local targets\n\nIf you append `:local` to a target name (like `[name:local]`) it will be executed on your local machine before remote target with the same name. You can define only local, only remote or both targets.\n\nIn case of any errors in local target remote target won’t be executed.\n\nYou can use these variables:\n\n* `$SSH_HOST` — your config’s `host` value,\n* `$SSH_PATH` — your config’s `path` value.\n\n## Examples\n\n### Deploy from Git\n\n    host=\'myhost\'\n    path=\'sites/example.com\'\n\n    [deploy:local]\n    git push origin master\n\n    [deploy]\n    git checkout master\n    git pull\n    npm install\n    npm prune\n    npm run build\n\n### Deploy with `rsync`\n\n    host=\'myhost\'\n    path=\'sites/example.com\'\n\n    [deploy:local]\n    npm test\n    npm run build\n    rsync --archive --compress --force --delete public/ $SSH_HOST:$SSH_PATH\n\n\n## Changelog\n\nThe changelog can be found on the [Releases page](https://github.com/sapegin/shipit/releases).\n\n\n---\n\n## License\n\nThe MIT License, see the included [License.md](License.md) file.\n',
-23 silly publish   readmeFilename: 'Readme.md',
-23 silly publish   gitHead: '9502725044fd737616ca711b73be54b63db03f8b',
-23 silly publish   _id: 'shipit-ssh@1.0.0',
-23 silly publish   _shasum: '513515c879826d71ebc187d0ad317ecaeabad63b',
-23 silly publish   _from: '.' }
-24 info lifecycle shipit-ssh@1.0.0~prepublishOnly: shipit-ssh@1.0.0
-25 silly lifecycle shipit-ssh@1.0.0~prepublishOnly: no script for prepublishOnly, continuing
-26 verbose getPublishConfig undefined
-27 silly mapToRegistry name shipit-ssh
-28 silly mapToRegistry using default registry
-29 silly mapToRegistry registry https://registry.npmjs.org/
-30 silly mapToRegistry data Result {
-30 silly mapToRegistry   raw: 'shipit-ssh',
-30 silly mapToRegistry   scope: null,
-30 silly mapToRegistry   escapedName: 'shipit-ssh',
-30 silly mapToRegistry   name: 'shipit-ssh',
-30 silly mapToRegistry   rawSpec: '',
-30 silly mapToRegistry   spec: 'latest',
-30 silly mapToRegistry   type: 'tag' }
-31 silly mapToRegistry uri https://registry.npmjs.org/shipit-ssh
-32 verbose publish registryBase https://registry.npmjs.org/
-33 silly publish uploading /Users/kurdin/.npm/shipit-ssh/1.0.0/package.tgz
-34 verbose request uri https://registry.npmjs.org/shipit-ssh
-35 verbose request sending authorization for write operation
-36 info attempt registry request try #1 at 3:10:18 PM
-37 verbose request using bearer token for auth
-38 verbose request id 0317b1d1e7a0a723
-39 http request PUT https://registry.npmjs.org/shipit-ssh
-40 http 403 https://registry.npmjs.org/shipit-ssh
-41 verbose headers { 'content-type': 'application/json',
-41 verbose headers   'cache-control': 'max-age=300',
-41 verbose headers   'content-length': '104',
-41 verbose headers   'accept-ranges': 'bytes',
-41 verbose headers   date: 'Sat, 25 Feb 2017 20:10:19 GMT',
-41 verbose headers   via: '1.1 varnish',
-41 verbose headers   connection: 'keep-alive',
-41 verbose headers   'x-served-by': 'cache-iad2626-IAD',
-41 verbose headers   'x-cache': 'MISS',
-41 verbose headers   'x-cache-hits': '0',
-41 verbose headers   'x-timer': 'S1488053418.710239,VS0,VE297',
-41 verbose headers   vary: 'Accept-Encoding' }
-42 verbose request invalidating /Users/kurdin/.npm/registry.npmjs.org/shipit-ssh on PUT
-43 error publish Failed PUT 403
-44 verbose stack Error: you do not have permission to publish "shipit-ssh". Are you logged in as the correct user? : shipit-ssh
-44 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:304:12)
-44 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:292:14)
-44 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:212:14)
-44 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:186:22)
-44 verbose stack     at emitTwo (events.js:106:13)
-44 verbose stack     at Request.emit (events.js:191:7)
-44 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1081:10)
-44 verbose stack     at emitOne (events.js:96:13)
-44 verbose stack     at Request.emit (events.js:188:7)
-44 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1001:12)
-45 verbose statusCode 403
-46 verbose pkgid shipit-ssh
-47 verbose cwd /Users/kurdin/projects/shipit
-48 error Darwin 16.4.0
-49 error argv "/usr/local/bin/iojs" "/usr/local/bin/npm" "publish" "."
-50 error node v6.9.4
-51 error npm  v4.1.2
-52 error code E403
-53 error you do not have permission to publish "shipit-ssh". Are you logged in as the correct user? : shipit-ssh
-54 error If you need help, you may report this error at:
-54 error     <https://github.com/npm/npm/issues>
-55 verbose exit [ 1, true ]
+4 info git [ 'status', '--porcelain' ]
+5 verbose stack Error: Git working directory not clean.
+5 verbose stack M npm-debug.log
+5 verbose stack M package.json
+5 verbose stack     at /usr/local/lib/node_modules/npm/lib/version.js:247:19
+5 verbose stack     at /usr/local/lib/node_modules/npm/lib/utils/no-progress-while-running.js:21:8
+5 verbose stack     at ChildProcess.exithandler (child_process.js:197:7)
+5 verbose stack     at emitTwo (events.js:106:13)
+5 verbose stack     at ChildProcess.emit (events.js:191:7)
+5 verbose stack     at maybeClose (internal/child_process.js:877:16)
+5 verbose stack     at Socket.<anonymous> (internal/child_process.js:334:11)
+5 verbose stack     at emitOne (events.js:96:13)
+5 verbose stack     at Socket.emit (events.js:188:7)
+5 verbose stack     at Pipe._handle.close [as _onclose] (net.js:498:12)
+6 verbose cwd /Users/kurdin/projects/shipit
+7 error Darwin 16.4.0
+8 error argv "/usr/local/bin/iojs" "/usr/local/bin/npm" "version" "1.0.1"
+9 error node v6.9.4
+10 error npm  v4.1.2
+11 error Git working directory not clean.
+11 error M npm-debug.log
+11 error M package.json
+12 error If you need help, you may report this error at:
+12 error     <https://github.com/npm/npm/issues>
+13 verbose exit [ 1, true ]
