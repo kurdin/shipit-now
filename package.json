@@ -1,5 +1,5 @@
 {
-  "name": "shipit-ssh",
+  "name": "shipit-now",
   "version": "1.0.0",
   "description": "Minimalistic SSH deployment",
   "main": "bin/shipit",
@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kurdin/shipit-ssh.git"
+    "url": "git+https://github.com/kurdin/shipit-now.git"
   },
   "author": "Sergey Kurdin",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kurdin/shipit-ssh/issues"
+    "url": "https://github.com/kurdin/shipit-now/issues"
   },
-  "homepage": "https://github.com/kurdin/shipit-ssh#readme"
+  "homepage": "https://github.com/kurdin/shipit-now#readme"
 }
